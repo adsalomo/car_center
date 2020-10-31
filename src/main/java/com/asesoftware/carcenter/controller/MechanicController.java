@@ -71,4 +71,13 @@ public class MechanicController {
                     HttpStatus.NOT_FOUND.value()));
         }
     }
+    
+    @GetMapping("available-mechanics")
+    public List<MechanicDto> getAvailableMechanics() throws RestException {
+        try {
+            return this.mechanicService.getAvailableMechanics();
+        } catch (NotFoundException ex) {
+            throw ex;
+        }
+    }
 }

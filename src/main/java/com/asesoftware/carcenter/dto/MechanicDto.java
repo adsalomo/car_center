@@ -18,24 +18,9 @@ public class MechanicDto {
     private String address;
     private String email;
     private char state;
+    private long timeWorked;
 
     public MechanicDto() {
-    }
-
-    public MechanicDto(int document, int documentTypeId, String documentTypeName,
-            String firstName, String secondName, String surName,
-            String secondSurName, String cellPhone, String address, String email, char state) {
-        this.document = document;
-        this.documentTypeId = documentTypeId;
-        this.documentTypeName = documentTypeName;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.surName = surName;
-        this.secondSurName = secondSurName;
-        this.cellPhone = cellPhone;
-        this.address = address;
-        this.email = email;
-        this.state = state;
     }
 
     /**
@@ -190,6 +175,20 @@ public class MechanicDto {
      */
     public void setDocument(int document) {
         this.document = document;
+    }
+
+    /**
+     * @return the timeWorked
+     */
+    public long getTimeWorked() {
+        return timeWorked;
+    }
+
+    /**
+     * @param timeWorked the timeWorked to set
+     */
+    public void setTimeWorked(long timeWorked) {
+        this.timeWorked = timeWorked;
     }
 
 }

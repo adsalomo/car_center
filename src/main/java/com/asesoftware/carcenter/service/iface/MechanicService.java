@@ -24,4 +24,13 @@ public interface MechanicService {
      */
     void create(MechanicDto mechanicDto) throws RestException;
     
+    /**
+     * Obtiene los mecanicos para asignar mantenimientos
+     * Verifica la disponibilidad teniendo en cuenta si esta libre o
+     * si tuvo menos carga de trabajo en el ultimo mes.
+     * @return List Mechanic
+     * @throws RestException 
+     */
+    List<MechanicDto> getAvailableMechanics() throws RestException;
+    
 }
