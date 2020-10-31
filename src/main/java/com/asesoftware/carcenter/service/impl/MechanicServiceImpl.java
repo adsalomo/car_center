@@ -140,6 +140,7 @@ public class MechanicServiceImpl implements MechanicService {
                 int time = 0;
 
                 for (Maintenance maintenance : maintenances) {
+                    // Contador tiempos de repuestos
                     List<SparePartsMaintenance> spares = this.spareRepository
                             .findByMaintenance(maintenance);
                     if (spares != null && spares.size() > 0) {
@@ -148,6 +149,7 @@ public class MechanicServiceImpl implements MechanicService {
                         }
                     }
 
+                    // Contador tiempos de servicio
                     List<MaintenanceServices> services = this.servicesRepository
                             .findByMaintenance(maintenance);
                     if (services != null && services.size() > 0) {
