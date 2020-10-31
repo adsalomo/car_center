@@ -27,6 +27,7 @@ public class MechanicControllerTest {
     @LocalServerPort
     private int port;
     private static final TestRestTemplate REST_TEMPLATE = new TestRestTemplate();
+    private final static String URL_AVAILABLE_MECHANICS = "/mechanic/available-mechanics";
     
     private String createURLWithPort(String uri) {
         return "http://localhost:"
@@ -39,7 +40,7 @@ public class MechanicControllerTest {
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
         ResponseEntity<String> response = REST_TEMPLATE.exchange(
-                createURLWithPort("/mechanic/available-mechanics"),
+                createURLWithPort(URL_AVAILABLE_MECHANICS),
                 HttpMethod.GET, entity, String.class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
