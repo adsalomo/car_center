@@ -52,6 +52,7 @@ public class MechanicServiceImpl implements MechanicService {
             MechanicDto dto = new MechanicDto();
             dto.setDocument(mechanic.getMechanicPK().getDocument());
             dto.setDocumentTypeId(mechanic.getDocumentTypeCode().getId());
+            dto.setDocumentTypeName(mechanic.getDocumentTypeCode().getName());
             dto.setFirstName(mechanic.getFirstName());
             dto.setSecondName(mechanic.getSecondName());
             dto.setSurName(mechanic.getSurName());
@@ -75,9 +76,9 @@ public class MechanicServiceImpl implements MechanicService {
                 .findById(mechanicDto.getDocumentTypeId());
         if (!documentType.isPresent()) {
             throw new BadRequestException(ErrorDto.getErrorDto(
-                    HttpStatus.NOT_FOUND.getReasonPhrase(),
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(),
                     ConstUtil.MESSAGE_ERROR_DATA,
-                    HttpStatus.NOT_FOUND.value()));
+                    HttpStatus.BAD_REQUEST.value()));
         }
 
         // Valida que no exista un mecanico con el mismo tipo y num documento
@@ -87,9 +88,9 @@ public class MechanicServiceImpl implements MechanicService {
 
         if (mechanic != null) {
             throw new BadRequestException(ErrorDto.getErrorDto(
-                    HttpStatus.NOT_FOUND.getReasonPhrase(),
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(),
                     ConstUtil.MESSAGE_EXISTS_MECHANIC,
-                    HttpStatus.NOT_FOUND.value()));
+                    HttpStatus.BAD_REQUEST.value()));
         }
 
         mechanic = new Mechanic();
@@ -98,7 +99,7 @@ public class MechanicServiceImpl implements MechanicService {
         mechanic.setFirstName(mechanicDto.getFirstName());
         mechanic.setSecondName(mechanicDto.getSecondName());
         mechanic.setSurName(mechanicDto.getSurName());
-        mechanic.setSecondSurName(mechanic.getSecondSurName());
+        mechanic.setSecondSurName(mechanicDto.getSecondSurName());
         mechanic.setCellPhone(mechanicDto.getCellPhone());
         mechanic.setAddress(mechanicDto.getAddress());
         mechanic.setEmail(mechanicDto.getEmail());
