@@ -8,6 +8,8 @@ import com.asesoftware.carcenter.exception.NotFoundException;
 import com.asesoftware.carcenter.exception.RestException;
 import com.asesoftware.carcenter.service.iface.MechanicService;
 import com.asesoftware.carcenter.util.ConstUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/mechanic")
 @CrossOrigin("*")
+@Api(value = "/mechanic", description = "Gestión api mechanics.")
 public class MechanicController {
 
     private static final Logger LOG = LoggerFactory.getLogger(MechanicController.class);
@@ -44,6 +47,10 @@ public class MechanicController {
      * @return List MechanicDto
      * @throws RestException
      */
+    @ApiOperation(value = "Obtiene los mecanicos registrados en el sistema del sistema",
+            response = MechanicDto.class,
+            responseContainer = "List",
+            httpMethod = "GET")
     @GetMapping
     public List<MechanicDto> getAll() throws RestException {
         try {
@@ -59,6 +66,9 @@ public class MechanicController {
      * @param mechanicDto Objecto MechanicDto
      * @throws RestException
      */
+    @ApiOperation(value = "Realiza la creación de un nuevo mecanico en el sistema",
+            responseContainer = "List",
+            httpMethod = "POST")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Validated MechanicDto mechanicDto) throws RestException {
@@ -81,6 +91,10 @@ public class MechanicController {
      * @return List
      * @throws RestException
      */
+    @ApiOperation(value = "Obtiene los mecanicos disponibles para la asignación de tareas",
+            response = MechanicDto.class,
+            responseContainer = "List",
+            httpMethod = "GET")
     @GetMapping("/available-mechanics")
     public List<MechanicDto> getAvailableMechanics() throws RestException {
         try {
