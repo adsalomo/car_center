@@ -7,12 +7,11 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Entity mapeo tabla marcas
+ * Entity mapeo tabla vehiculos
  *
  * @author adrian
  */
