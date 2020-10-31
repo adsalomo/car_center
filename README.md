@@ -13,9 +13,9 @@ Se puede visualizar la documentación Swagger del API REST ejecutando el API e i
 
 * Swagger:
 
-http://localhost:8080/api/v1/v2/api-docs
+http://localhost:8082/api/v1/v2/api-docs
 
 * Documentación amigable de Swagger:
 
-http://localhost:8080/api/v1/swagger-ui.html
+http://localhost:8082/api/v1/swagger-ui.html
 
