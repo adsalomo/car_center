@@ -7,6 +7,4 @@ Ingrese al directorio car_center y ejecute el siguiente comando con maven
 * mvn clean compile install
 ## Luego para para compilar ejecute el siguiente comando
 * mvn clean compile package
-## Despliegue con docker
-Dentro del directorio car_center ejecute
 
