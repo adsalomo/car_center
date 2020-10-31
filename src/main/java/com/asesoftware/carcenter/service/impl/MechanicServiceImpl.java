@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -37,23 +38,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MechanicServiceImpl implements MechanicService {
 
-    private final MechanicRepository mechanicRepository;
-    private final DocumentTypeRepository documentTypeRepository;
-    private final MaintenanceRepository mainRepository;
-    private final MaintenanceServicesRepository servicesRepository;
-    private final SparePartsMaintRepository spareRepository;
-
-    public MechanicServiceImpl(MechanicRepository mechanicRepository,
-            DocumentTypeRepository documentTypeRepository,
-            MaintenanceRepository mainRepository,
-            MaintenanceServicesRepository servicesRepository,
-            SparePartsMaintRepository spareRepository) {
-        this.mechanicRepository = mechanicRepository;
-        this.documentTypeRepository = documentTypeRepository;
-        this.mainRepository = mainRepository;
-        this.servicesRepository = servicesRepository;
-        this.spareRepository = spareRepository;
-    }
+    @Autowired
+    private MechanicRepository mechanicRepository;
+    @Autowired
+    private DocumentTypeRepository documentTypeRepository;
+    @Autowired
+    private MaintenanceRepository mainRepository;
+    @Autowired
+    private MaintenanceServicesRepository servicesRepository;
+    @Autowired
+    private SparePartsMaintRepository spareRepository;
 
     @Override
     public List<MechanicDto> getAll() throws RestException {
@@ -74,6 +68,14 @@ public class MechanicServiceImpl implements MechanicService {
 
     @Override
     public void create(MechanicDto mechanicDto) throws RestException {
+        // Valida numero documento minimo 6 digitos
+        if (mechanicDto.getDocument() < 6) {
+            throw new BadRequestException(ErrorDto.getErrorDto(
+                    HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                    ConstUtil.MESSAGE_ERROR_DATA,
+                    HttpStatus.BAD_REQUEST.value()));
+        }
+
         // Valida que exista el tipo documento enviado
         Optional<DocumentType> documentType = this.documentTypeRepository
                 .findById(mechanicDto.getDocumentTypeId());

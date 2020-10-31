@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,14 +34,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class MechanicController {
 
     private static final Logger LOG = LoggerFactory.getLogger(MechanicController.class);
-    
+
     @Autowired
     private MechanicService mechanicService;
 
     /**
      * Recurso que se encarga de obtener los mecanicos
+     *
      * @return List MechanicDto
-     * @throws RestException 
+     * @throws RestException
      */
     @GetMapping
     public List<MechanicDto> getAll() throws RestException {
@@ -53,12 +55,13 @@ public class MechanicController {
 
     /**
      * Recurso que se encarga de crear un nuevo registro
+     *
      * @param mechanicDto Objecto MechanicDto
-     * @throws RestException 
+     * @throws RestException
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody MechanicDto mechanicDto) throws RestException {
+    public void create(@RequestBody @Validated MechanicDto mechanicDto) throws RestException {
         try {
             this.mechanicService.create(mechanicDto);
         } catch (BadRequestException ex) {
@@ -66,13 +69,19 @@ public class MechanicController {
         } catch (Exception ex) {
             LOG.error("ERROR CREATE", ex);
             throw new InternalServerErrorException(ErrorDto.getErrorDto(
-                    HttpStatus.NOT_FOUND.getReasonPhrase(),
+                    HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
                     ConstUtil.MESSAGE_NOT_FOUND,
-                    HttpStatus.NOT_FOUND.value()));
+                    HttpStatus.INTERNAL_SERVER_ERROR.value()));
         }
     }
-    
-    @GetMapping("available-mechanics")
+
+    /**
+     * Obtiene los mecanicos disponibles para asignar mantenimientos
+     *
+     * @return List
+     * @throws RestException
+     */
+    @GetMapping("/available-mechanics")
     public List<MechanicDto> getAvailableMechanics() throws RestException {
         try {
             return this.mechanicService.getAvailableMechanics();

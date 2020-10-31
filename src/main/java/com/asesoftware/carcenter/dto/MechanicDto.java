@@ -1,5 +1,7 @@
 package com.asesoftware.carcenter.dto;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * Dto Mechanic
  *
@@ -10,12 +12,17 @@ public class MechanicDto {
     private int document;
     private int documentTypeId;
     private String documentTypeName;
+    @NotBlank(message = "Primer nombre es requerido")
     private String firstName;
     private String secondName;
+    @NotBlank(message = "Primer apellido es requerido")
     private String surName;
     private String secondSurName;
+    @NotBlank(message = "Teléfono es requerido")
     private String cellPhone;
+    @NotBlank(message = "Dircción es requerido")
     private String address;
+    @NotBlank(message = "Email es requerido")
     private String email;
     private char state;
     private long timeWorked;
