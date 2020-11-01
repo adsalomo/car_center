@@ -68,8 +68,8 @@ public class MechanicServiceImpl implements MechanicService {
 
     @Override
     public void create(MechanicDto mechanicDto) throws RestException {
-        // Valida numero documento minimo 6 digitos
-        if (mechanicDto.getDocument() < 6) {
+        // Valida que el numero de documento sea mayor a 0
+        if (mechanicDto.getDocument() <= 0) {
             throw new BadRequestException(ErrorDto.getErrorDto(
                     HttpStatus.BAD_REQUEST.getReasonPhrase(),
                     ConstUtil.MESSAGE_ERROR_DATA,
